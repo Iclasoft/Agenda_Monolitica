@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import Dominio.Contacto;
 
 //1 hora y media
 
@@ -30,24 +34,31 @@ public class Agente {
 		catch(SQLException e){
 			conn = DriverManager.getConnection("jdbc:derby:."+ruta+";create=true");
 			
-			PreparedStatement pstm=conn.prepareStatement("CREATE TABLE contactos(nombre varchar(50), tfno varchar(18), PRIMARY KEY(nombre)");
+			PreparedStatement pstm=conn.prepareStatement("CREATE TABLE CONTACTOS(NOMBRE varchar(50), TFNO varchar(18), PRIMARY KEY(NOMBRE))");
 			pstm.execute();
 			pstm.close();
 		}
 	}
 	public void disconnect() throws SQLException{
-		conn.close();
+		if(conn!=null) conn.close();
 	}
 	public void executeNonQuery(String statement) throws SQLException{
 		PreparedStatement pstm=conn.prepareStatement(statement);
 		pstm.execute();
 		pstm.close();
 	}
-	public ResultSet executeQuery(String statement) throws SQLException{
+	public List<String[]> executeQuery(String statement) throws SQLException{
 		PreparedStatement pstm= conn.prepareStatement(statement);
 		ResultSet resultado= pstm.executeQuery();
+		List<String[]> contactos=new ArrayList<String[]>();
+		while(resultado.next()){
+			String[] array= new String[2];
+			array[0]=resultado.getString("nombre");
+			array[1]=resultado.getString("tfno");
+			contactos.add(array);
+		}
 		pstm.close();
-		return resultado;
+		return contactos;
 	}
 	
 	

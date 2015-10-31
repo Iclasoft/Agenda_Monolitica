@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
@@ -11,8 +13,14 @@ import javax.swing.JScrollPane;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.border.TitledBorder;
+
+import Dominio.GestorAgente;
+import Dominio.GestorContacto;
+
 import java.awt.Color;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.Component;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -22,6 +30,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ListSelectionModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class mascara {
 
@@ -38,6 +48,8 @@ public class mascara {
 	private JButton btnBorrar;
 	private JButton btnBuscar;
 	private JTextField txtBuscar;
+	private GestorAgente gestorAgente=new GestorAgente();
+	private GestorContacto gestorContacto=new GestorContacto();
 
 	/**
 	 * Launch the application.
@@ -67,9 +79,10 @@ public class mascara {
 	 */
 	private void initialize() {
 		frmAgendaMonolitica = new JFrame();
+		frmAgendaMonolitica.addWindowListener(new FrmAgendaMonoliticaWindowListener());
 		frmAgendaMonolitica.setResizable(false);
 		frmAgendaMonolitica.setTitle("Agenda Monolítica");
-		frmAgendaMonolitica.setIconImage(Toolkit.getDefaultToolkit().getImage(mascara.class.getResource("/presentacion/agenda.png")));
+		frmAgendaMonolitica.setIconImage(Toolkit.getDefaultToolkit().getImage(mascara.class.getResource("/Presentacion/agenda.png")));
 		frmAgendaMonolitica.setBounds(100, 100, 409, 304);
 		frmAgendaMonolitica.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		{
@@ -175,6 +188,36 @@ public class mascara {
 				gbc_btnBorrar.gridy = 2;
 				pnlPrincipal.add(btnBorrar, gbc_btnBorrar);
 			}
+			
+			try {
+				gestorAgente.connect();
+			} catch (ClassNotFoundException e) {
+				JOptionPane.showMessageDialog(frmAgendaMonolitica,"Error al cargar el driver de la base de datos...\nEl programa se cerrará","Error",JOptionPane.WARNING_MESSAGE);
+				cerrar();
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(frmAgendaMonolitica,"Error al cargar la base da datos...\nEl programa se cerrará","Error",JOptionPane.WARNING_MESSAGE);
+				cerrar();
+			}
+			cargarDatos();
+		}
+		
+	}
+	private void cargarDatos(){
+		try {
+			listContactos.setListData(gestorContacto.cargarDatos());
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(frmAgendaMonolitica,"Error al cargar la lista de contactos...\nEl programa se cerrará","Error",JOptionPane.WARNING_MESSAGE);
+			cerrar();
+		}
+	}
+	private void cerrar(){
+		frmAgendaMonolitica.setVisible(false);
+		frmAgendaMonolitica.dispose();
+		System.exit(-1);
+	}
+	private class FrmAgendaMonoliticaWindowListener extends WindowAdapter {
+		public void windowClosing(WindowEvent e) {
+				gestorAgente.disconect();
 		}
 	}
 }
