@@ -20,14 +20,7 @@ public class GestorContacto {
 		
 		return listaContactos;
 	}
-	public Vector<Contacto> borrarContacto(Contacto contacto) throws SQLException{
-		List<String[]> contactos;
-		Vector<Contacto> listaContactos=new Vector<Contacto>();
+	public void borrarContacto(Contacto contacto) throws SQLException{
 		Agente.getAgente().executeNonQuery("DELETE FROM contactos WHERE nombre= '"+contacto.getNombre()+"'");
-		contactos= Agente.getAgente().executeQuery("SELECT * FROM contactos");
-		for(String[] c: contactos){
-			listaContactos.addElement(new Contacto(c[0],c[1]));
-		}
-		return listaContactos;
 	}
 }
