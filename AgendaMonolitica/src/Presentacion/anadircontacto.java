@@ -57,7 +57,7 @@ public class anadircontacto extends JFrame {
 	public anadircontacto() {
 		setName("frmadd");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(anadircontacto.class.getResource("/Presentacion/images.png")));
-		setTitle("AÃ±adir contacto");
+		setTitle("añadir contacto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 242, 158);
 		contentPane = new JPanel();
@@ -112,7 +112,7 @@ public class anadircontacto extends JFrame {
 			txttelefono.setColumns(10);
 		}
 		{
-			btnAnadir = new JButton("AÃ±adir");
+			btnAnadir = new JButton("añadir");
 			btnAnadir.addActionListener(new BtnAnadirActionListener());
 			GridBagConstraints gbc_btnAnadir = new GridBagConstraints();
 			gbc_btnAnadir.anchor = GridBagConstraints.EAST;

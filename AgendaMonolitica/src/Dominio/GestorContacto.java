@@ -29,5 +29,22 @@ public class GestorContacto{
 		Agente.getAgente().executeNonQuery("INSERT INTO contactos VALUES('"+Nombre+"', '"+Telefono+"')");	
 	}
 
+	public void borrarContacto(Contacto contacto) throws SQLException{
+		Agente.getAgente().executeNonQuery("DELETE FROM contactos WHERE nombre= '"+contacto.getNombre()+"'");
+	}
 	
+	public Vector<Contacto> buscarContactoNombre(String nombre) throws SQLException{
+		return realizarConsulta("SELECT * FROM contactos WHERE nombre = %"+nombre);
+	}
+	public Vector<Contacto> buscarContactoTfno(String tfno) throws SQLException{
+		return realizarConsulta("SELECT * FROM contactos WHERE nombre = %"+tfno);
+	}
+	private Vector<Contacto> realizarConsulta(String sentencia) throws SQLException{
+		Vector<Contacto> listaContactos = new Vector<Contacto>();
+		List<String[]> contactos=Agente.getAgente().executeQuery(sentencia);
+		for(String[] contacto: contactos){
+			listaContactos.addElement(new Contacto(contacto[0],contacto[1]));
+		}
+		return listaContactos;
+	}
 }

@@ -95,7 +95,7 @@ public class mascara {
 		frmAgendaMonolitica = new JFrame();
 		frmAgendaMonolitica.addWindowListener(new FrmAgendaMonoliticaWindowListener());
 		frmAgendaMonolitica.setResizable(false);
-		frmAgendaMonolitica.setTitle("Agenda MonolÃ­tica");
+		frmAgendaMonolitica.setTitle("Agenda Monolitica");
 		frmAgendaMonolitica.setIconImage(Toolkit.getDefaultToolkit().getImage(mascara.class.getResource("/Presentacion/agenda.png")));
 		frmAgendaMonolitica.setBounds(100, 100, 409, 304);
 		frmAgendaMonolitica.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -185,7 +185,7 @@ public class mascara {
 				}
 			}
 			{
-				btnAnadir = new JButton("AÃ±adir");
+				btnAnadir = new JButton("Anadir");
 				btnAnadir.addActionListener(new BtnAnadirActionListener());
 				GridBagConstraints gbc_btnAnadir = new GridBagConstraints();
 				gbc_btnAnadir.anchor = GridBagConstraints.EAST;

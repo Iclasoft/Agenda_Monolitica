@@ -26,8 +26,4 @@ public class Contacto {
 	public String toString() {
 		return Nombre;
 	}
-	
-	
-	
-	
 }
