@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Wed Nov 11 00:47:42 CET 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.9.1.0 - (1344872): instance a816c00e-0150-f3cc-484e-000004f30ff0 
+on database directory F:\Codigo\Java\AgendaMonolitica\.Datos  with class loader sun.misc.Launcher$AppClassLoader@4e0e2f2a 
+Loaded from file:/F:/Codigo/Java/AgendaMonolitica/src/Librer%c3%adas/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_60-b27
+user.dir=F:\Codigo\Java\AgendaMonolitica
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
